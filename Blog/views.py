@@ -1,4 +1,4 @@
-from django.shortcuts import render , HttpResponse
+from django.shortcuts import render , HttpResponse , redirect
 from .models import Post
 # Create your views here.
 def index(request):
@@ -18,8 +18,7 @@ def createPost(request):
         post.content = content 
         post.banner = image
         post.save()
-
-        return HttpResponse(f'DATA SAVED SUCCESSFULLY')
+        return redirect('createPost')
     return render(request, 'create_post.html', {})
 
 def viewPost(request, post_id):
