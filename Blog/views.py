@@ -1,5 +1,5 @@
 from django.shortcuts import render , HttpResponse
-
+from .models import Post
 # Create your views here.
 def index(request):
     return render(request, 'index.html' , {})
@@ -12,7 +12,14 @@ def createPost(request):
         content = request.POST.get('post_content')
         image = request.POST.get('post_image')
 
-        return HttpResponse(f'POSTED DATA: \nTITLE: {title}\nCONTENT: {content}\nIMAGE: {image}')
+        # save data to the database
+        post = Post()
+        post.title = title
+        post.content = content 
+        post.banner = image
+        post.save()
+
+        return HttpResponse(f'DATA SAVED SUCCESSFULLY')
     return render(request, 'create_post.html', {})
 
 def viewPost(request, post_id):
