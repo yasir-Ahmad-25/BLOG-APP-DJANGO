@@ -28,9 +28,10 @@ def createPost(request):
     return render(request, 'create_post.html', {})
 
 def viewPost(request, post_id):
-    manual_id = post_id
+    post = Post.objects.get(id=post_id)
+    
     context = {
-        'id': manual_id
+        'post': post
     }
     return render(request, 'view_post.html' , context)
 

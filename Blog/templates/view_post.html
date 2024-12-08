@@ -8,5 +8,21 @@ VIEW POST - POST-NAME
 
 
 {% block page_content %}
-    <h1>VIEW PAGE IS ACTIVE: {{ id }}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mt-4 mb-3">
+                <img src="{{ post.banner.url }}" alt="post_image" class="border border-dark rounded " srcset="" width="280">
+            </div>
+            <div class="col-md-8 mt-5">
+                <h5><b>{{ post.title }}</b></h5>
+                <hr>
+                <p>{{ post.content }}</p>
+                <hr>
+                <div class="d-flex float-end">
+                    <a href="{% url 'updatePost' post.id %}" class="btn btn-warning">UPDATE</a>
+                    <a href="{% url 'updatePost' post.id %}" class="btn btn-danger mx-3">DELETE</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock page_content %}
