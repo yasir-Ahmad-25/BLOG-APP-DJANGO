@@ -6,6 +6,13 @@ def index(request):
 
 
 def createPost(request):
+    if request.method == "POST":
+        # get the posted data
+        title = request.POST.get('post_Title') 
+        content = request.POST.get('post_content')
+        image = request.POST.get('post_image')
+
+        return HttpResponse(f'POSTED DATA: \nTITLE: {title}\nCONTENT: {content}\nIMAGE: {image}')
     return render(request, 'create_post.html', {})
 
 def viewPost(request, post_id):
