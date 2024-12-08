@@ -35,9 +35,6 @@ def viewPost(request, post_id):
     }
     return render(request, 'view_post.html' , context)
 
-from django.shortcuts import get_object_or_404, redirect, render
-from .models import Post
-
 def updatePost(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     context = {
@@ -66,7 +63,10 @@ def updatePost(request, post_id):
 
     return render(request, 'update_post.html', context)
 
-
+def deletePost(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return redirect('Home')
 
 def Login(request):
     return render(request, 'Login.html' , {})
