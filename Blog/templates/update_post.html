@@ -8,35 +8,31 @@ UPDATE POST
 {% block page_content %}
    <div class="container mt-5 border border-dark rounded p-4">
 
-    <h5 class="text-center">R E G I S T E R 😈</h5>
+    <h5 class="text-center">U P D A T E ✨</h5>
     <hr>
-    <form action="" method="POST">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="#">First-name</label>
-                    <input type="text" class="form-control" name="FirstName" id="FirstName">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" class="form-control" readonly name="post_id" id="post_id" value="{{ post.id }}">
+        <div class="form-group mt-3">
+            <label for="#">Post Title</label>
+            <input type="text" class="form-control " name="post_Title" id="post_Title" value="{{ post.title }}">
+        </div>
+        <div class="form-group mt-3">
+            <label for="#">content</label>
+           <textarea name="post_content" class="form-control" id="post_content">{{ post.content }}</textarea>
+        </div>
+        <div class="form-group mt-3">
+            <label for="post_image">Post Image</label>
+            <input type="file" name="post_image" id="post_image" class="form-control">
+        
+            {% if post.banner %}
+                <div class="mt-2">
+                    <label>Current Image:</label> <br>
+                    <img src="{{ post.banner.url }}" alt="Current post image" class="img-thumbnail" style="max-width: 200px;">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="#">Last-name</label>
-                    <input type="text" class="form-control" name="LastName" id="LastName">
-                </div>
-            </div>
+            {% endif %}
         </div>
-        <div class="form-group mt-3">
-            <label for="#">username</label>
-            <input type="text" class="form-control " name="username" id="username">
-        </div>
-        <div class="form-group mt-3">
-            <label for="#">Password</label>
-            <input type="text" class="form-control " name="password" id="password">
-        </div>
-        <div class="form-group mt-3">
-            <label for="#">Confirm Password</label>
-            <input type="text" class="form-control " name="confirmpassword" id="confirmpassword">
-        </div>
+        
         <div class="form-group">
             <button type="submit" class="btn btn-warning w-100 mt-3">UPDATE POST 📝</button>
         </div>

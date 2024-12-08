@@ -1,4 +1,4 @@
-from django.shortcuts import render , HttpResponse , redirect
+from django.shortcuts import render , HttpResponse , redirect , get_object_or_404
 from .models import Post
 # Create your views here.
 def index(request):
@@ -35,12 +35,37 @@ def viewPost(request, post_id):
     }
     return render(request, 'view_post.html' , context)
 
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Post
+
 def updatePost(request, post_id):
-    manual_id = post_id
+    post = get_object_or_404(Post, id=post_id)
     context = {
-        'id': manual_id
+        'post': post
     }
-    return render(request, 'update_post.html' , context)
+
+    if request.method == 'POST':
+        # Get posted data for title and content
+        title = request.POST.get('post_Title')
+        content = request.POST.get('post_content')
+        
+        # Check if a new image is uploaded
+        new_image = request.FILES.get('post_image')  # Use request.FILES for image files
+        
+        # Update the post object
+        post.title = title
+        post.content = content
+        
+        # Only update the banner if a new image was uploaded
+        if new_image:
+            post.banner = new_image
+        
+        post.save()  # Save the updated post
+
+        return redirect('Home')  # Redirect to the home page after update
+
+    return render(request, 'update_post.html', context)
+
 
 
 def Login(request):
